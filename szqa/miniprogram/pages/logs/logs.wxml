@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='form-list'>
+  <input type='text' value='{{message}}'></input>
+  <image class='scan' src='{{pic}}' mode='widthFix'></image>
+</view>
+</view>
