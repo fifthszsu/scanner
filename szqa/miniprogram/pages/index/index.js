@@ -50,5 +50,10 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  onShareAppMessage: function () {
+    return {
+      imageUrl: '/images/logo.jpg' // 图片 URL
+    }
   }
 })
