@@ -1,0 +1,23 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="page-section">
+    <view class="weui-cells__title">该微信名尚未关联部门人员，请输入</view>
+    <view class="weui-cells__title">\n</view>
+    <view class="weui-cells__title">\n</view>
+    <!-- <view>
+      <text>\n</text>
+    </view> -->
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" auto-focus placeholder="e.g san.zhang or 张三" bindinput="nameInput"/>
+      </view>
+    </view>
+  </view>
+  <text>\n</text>
+  <text>\n</text>
+  <text>\n</text>
+  <text>\n</text>
+  <text>\n</text>
+  <button class="loginBtn" size="default" bindtap="clickButton" form-type="submit" disabled="{{isDisabled}}">提交</button>
+  <view class="weui-cells__title">提交后会开启扫码</view>
+</view>
