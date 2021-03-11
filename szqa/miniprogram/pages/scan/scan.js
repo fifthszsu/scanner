@@ -7,7 +7,8 @@ Page({
     scanCodeMsg: "",
     yourName: "",
     message: "",
-    nickName:""
+    nickName:"",
+    sucFlag: false
   },
   onLoad: function () {
     wx.cloud.init()
@@ -36,9 +37,10 @@ Page({
             var notFound = true
             for (const ele of res.data){
               if(ele.id == that.data.scanCodeMsg){
+                var timeNow = util.formatTime(new Date())
                 db.collection('mobile').doc(ele._id).update({
                   data: {
-                    time: util.formatTime(new Date()),
+                    time: timeNow,
                     user: that.data.nickName,
                     member: that.data.yourName
                   },
@@ -47,6 +49,20 @@ Page({
                       message: "该机 "+ele.brand+" "+ele.OS+" 成功注册到 " + that.data.yourName+" 名下,请妥善保管",
                       pic : "/images/smile.png"
                     });
+                    // that.setData({
+                    //   sucFlag: true
+                    // });
+                    db.collection('logs').doc("79550af2604a3b12098cc7e009506ef8").get({
+                      success: res => {
+                        var arr=res.data.log
+                        arr.push(that.data.scanCodeMsg + " : " + timeNow+" : " + that.data.yourName + " : " + that.data.nickName)
+                        db.collection('logs').doc("79550af2604a3b12098cc7e009506ef8").update({
+                          data: {
+                            log: arr
+                          }
+                        })
+                      }
+                    }) 
                   },
                   fail: function(res) {
                     that.setData({
@@ -55,6 +71,7 @@ Page({
                     });
                   }
                 })
+ 
                 notFound = false
                 break
               }
@@ -67,6 +84,21 @@ Page({
             }
           }
         })
+        // if(that.data.sucFlag){
+        //   console.log("aaa")
+        //   db.collection('logs').doc("79550af2604a3b12098cc7e009506ef8").get({
+        //     success: res => {
+        //       var arr=res.data.log
+        //       arr.push(that.data.scanCodeMsg + " : " + timeNow+" : " + that.data.yourName + " : " + that.data.nickName)
+        //       db.collection('logs').doc("79550af2604a3b12098cc7e009506ef8").update({
+        //         data: {
+        //           log: arr
+        //         }
+        //       })
+        //     }
+        //   }) 
+        // }
+        
         
         // db.collection('mobile').doc(that.data.scanCodeMsg).get({
         //   success: function(res) {
